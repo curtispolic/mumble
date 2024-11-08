@@ -135,7 +135,8 @@ void OverlayConfig::refreshFpsLive() {
 
 void OverlayConfig::refreshTimeLive() {
 	if (s.os.bTime) {
-		bpTimeDemo = OverlayTextLine(QString::fromLatin1("%1").arg(QTime::currentTime().toString()), s.os.qfFps)
+		const QString timeString = QTime::currentTime().toString(QLatin1String(s.os.bTime24 ? "HH:mm:ss" : "hh:mm:ss AP"));
+		bpTimeDemo = OverlayTextLine(QString::fromLatin1("%1").arg(timeString), s.os.qfFps)
 						 .createPixmap(s.os.qcFps);
 		qgpiTimeLive->setPixmap(bpTimeDemo.scaled(bpTimeDemo.size() * fViewScale));
 		qgpiTimeLive->setOffset((-bpTimeDemo.qpBasePoint + QPoint(0, bpTimeDemo.iAscent)) * fViewScale);
@@ -255,6 +256,7 @@ void OverlayConfig::load(const Settings &r) {
 	loadCheckBox(qcbEnable, s.os.bEnable);
 	qcbShowFps->setChecked(s.os.bFps);
 	qcbShowTime->setChecked(s.os.bTime);
+	qcbTime24->setChecked(s.os.bTime24);
 	qgpFps->setEnabled(s.os.bEnable);
 
 	qcbOverlayExclusionMode->setCurrentIndex(static_cast< int >(s.os.oemOverlayExcludeMode));
@@ -423,6 +425,7 @@ void OverlayConfig::save() const {
 	s.os.bEnable = qcbEnable->isChecked();
 	s.os.bFps    = qcbShowFps->isChecked();
 	s.os.bTime   = qcbShowTime->isChecked();
+	s.os.bTime24 = qcbTime24->isChecked();
 
 	s.os.oemOverlayExcludeMode =
 		static_cast< OverlaySettings::OverlayExclusionMode >(qcbOverlayExclusionMode->currentIndex());

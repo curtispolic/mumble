@@ -161,6 +161,16 @@
                 </widget>
                </item>
                <item>
+                <widget class="QCheckBox" name="qcbTime24">
+                 <property name="toolTip">
+                  <string>If checked the time in the overlay will be displayed in 24-hour format.</string>
+                 </property>
+                 <property name="text">
+                  <string>Use 24-hour clock</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
                 <widget class="QPushButton" name="qpbFpsFont">
                  <property name="toolTip">
                   <string>Set the overlay font.</string>
